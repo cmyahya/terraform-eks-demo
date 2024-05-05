@@ -35,7 +35,7 @@ terraform destroy -auto-approve
 ```
 ## Network Diagram
 Below is a basic network diagram illustrating the VPC, subnets, and the deployed EKS cluster:
-![images\network diagram.png]
+!(images/network_diagram.png)
 
 ## Notes
 > The EKS cluster is deployed in the us-west-2 region with the name Chinnu.
