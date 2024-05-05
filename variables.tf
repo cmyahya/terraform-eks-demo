@@ -3,13 +3,13 @@ variable "namespace" {
   default     = "chinnu"
   type        = string
 }
- 
+
 variable "ssh_keypair" {
   description = "SSH keypair to use for EC2 instance"
   default     = null
   type        = string
 }
- 
+
 variable "region" {
   description = "AWS region"
   default     = "us-west-2"
