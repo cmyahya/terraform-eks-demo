@@ -7,42 +7,48 @@ AWS CLI configured with appropriate credentials and permissions to access AWS se
 ## Usage
 Clone this repository to your local machine:
 ```bash
-Copy code
 git clone https://github.com/cmyahya/terraform-eks-demo.git
+```
 Navigate to the project directory:
-bash
-Copy code
+```bash
 cd terraform-eks-demo
+```
 Update the variables.tf file with your specific configuration such as namespace, region and kubernetes version.
 Initialize Terraform:
-bash
-Copy code
+```bash
 terraform init
+```
 Review the Terraform plan:
-bash
-Copy code
+```bash
 terraform plan
+```
 Apply the Terraform configuration to create the EKS cluster:
-bash
-Copy code
+```bash
 terraform apply -auto-approve
 ```
 Once finished, you can access your EKS cluster and manage Kubernetes resources as needed.
 To destroy the EKS cluster and associated resources, run:
 ```bash
-Copy code
 terraform destroy -auto-approve
 ```
 ## Network Diagram
-Below is a basic network diagram illustrating the VPC, subnets, and the deployed EKS cluster:
+Below is a basic network diagram illustrating the VPC, subnets, and the deployed EKS cluster for this demo:
+
 ![](/images/network_diagram.png)
 
+- EKS cluster is deployed in two AZs in us-west-2 region
+- EKS cluster is deployed in a private subnet
+- NAT Gateway for the EKS cluster is created in the public subnet
+- EKS cluster will only have SSH inbound traffic from public subnet EC2 instances
+- Public subnet will have EC2 instances that act as proxy servers (Bastion hosts) for the EKS Cluster
+- Only authorized IAM users will be able to ```ssh``` into EKS cluster nodes
+
 ## Notes
-> The EKS cluster is deployed in the us-west-2 region with the name Chinnu.
-> Kubernetes version 1.27 is used for the cluster.
-> A unique cluster service role is created for the cluster.
-> Resources created are tagged with OWNER: CHINNU_Y and CATEGORY: ENG_ASSESSMENT.
-> The node group is autoscaled based on CPU utilization with a max size of 6, min size of 3, and desired size of 4.
-> Amazon EKS optimized AMI is used for the worker nodes.
-> At least one namespace (chinnu) is created within the cluster.
-> VPC ID information can be read from the Terraform outputs.
+> - The EKS cluster is deployed in the us-west-2 region with the name Chinnu.
+> - Kubernetes version 1.27 is used for the cluster.
+> - A unique cluster service role is created for the cluster.
+> - Resources created are tagged with OWNER: CHINNU_Y and CATEGORY: ENG_ASSESSMENT.
+> - The node group is autoscaled based on CPU utilization with a max size of 6, min size of 3, and desired size of 4.
+> - Amazon EKS optimized AMI is used for the worker nodes.
+> - At least one namespace (chinnu) is created within the cluster.
+> - VPC ID information can be read from the Terraform outputs.

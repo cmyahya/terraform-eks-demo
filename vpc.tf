@@ -22,16 +22,12 @@ resource "aws_security_group" "worker_sg" {
 
 resource "aws_security_group_rule" "worker_sg_ingress" {
   description       = "allow inbound traffic to eks"
-  from_port         = 0
-  protocol          = "-1"
-  to_port           = 0
+  from_port         = 22
+  protocol          = "SSH"
+  to_port           = 22
   security_group_id = aws_security_group.worker_sg.id
   type              = "ingress"
-  cidr_blocks = [
-    "10.0.0.0/8",
-    "172.16.0.0/12",
-    "192.168.0.0/16",
-  ]
+  cidr_blocks = ["10.0.3.0/24","10.0.4.0/24"]
 }
 
 resource "aws_security_group_rule" "worker_sg_egress" {
